@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Replace branch with your repo's default branch if not 'main'
                 git branch: 'main', 
                     url: 'https://github.com/Vedantatugade/jenkins-cicd.git',
                     credentialsId: 'github-pat'
@@ -14,30 +13,31 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                // Add your actual build commands here, e.g.:
-                // sh 'mvn clean install'   # for a Maven project
-                // sh 'npm install'         # for a Node.js project
+                // Add your build commands here, e.g., Maven, Gradle, npm
+                // sh 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Add test commands here if needed
+                echo 'Running automated tests...'
+                // Add your test commands here
+                // sh 'mvn test' or 'npm test'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                // Add deploy commands here
+                echo 'Deploying the application...'
+                // Example: Deploy to AWS or any staging server
+                // sh 'scp target/app.jar user@server:/deploy/path/'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline finished.'
+            echo 'Pipeline completed.'
         }
     }
 }
