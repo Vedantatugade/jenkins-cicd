@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Replace branch with your repo's default branch if not 'main'
+                git branch: 'main', 
+                    url: 'https://github.com/Vedantatugade/jenkins-cicd.git',
+                    credentialsId: 'github-pat'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+                // Add your actual build commands here, e.g.:
+                // sh 'mvn clean install'   # for a Maven project
+                // sh 'npm install'         # for a Node.js project
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add test commands here if needed
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                // Add deploy commands here
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}
